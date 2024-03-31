@@ -1,0 +1,76 @@
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+
+Each number in candidates may only be used once in the combination.
+
+Note: The solution set must not contain duplicate combinations.
+
+ 
+
+Example 1:
+
+Input: candidates = [10,1,2,7,6,1,5], target = 8
+Output: 
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+Example 2:
+
+Input: candidates = [2,5,2,1,2], target = 5
+Output: 
+[
+[1,2,2],
+[5]
+]
+ 
+
+Constraints:
+
+1 <= candidates.length <= 100
+1 <= candidates[i] <= 50
+1 <= target <= 30
+
+
+
+
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        # Sort the candidates to handle duplicates and facilitate early termination
+        candidates.sort()
+
+        # List to store the final combinations
+        res = []
+
+        # Backtracking function
+        def backtrack(cur, pos, target):
+            # If the target is reached, add the current combination to the result
+            if target == 0:
+                res.append(cur.copy())
+                return
+            # If the target is exceeded, terminate this branch of recursion
+            if target <= 0:
+                return
+
+            # Variable to keep track of the previous candidate to avoid duplicates
+            prev = -1
+
+            # Iterate through candidates starting from the given position
+            for i in range(pos, len(candidates)):
+                # Skip duplicates to avoid duplicate combinations
+                if candidates[i] == prev:
+                    continue
+                # Add the current candidate to the combination
+                cur.append(candidates[i])
+                # Recursively call the function with updated parameters
+                backtrack(cur, i + 1, target - candidates[i])
+                # Backtrack by removing the last added candidate
+                cur.pop()
+                # Update the previous candidate
+                prev = candidates[i]
+
+        # Start the backtracking process with an empty combination and position 0
+        backtrack([], 0, target)
+        # Return the final result
+        return res
