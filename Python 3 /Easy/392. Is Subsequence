@@ -1,0 +1,40 @@
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+ 
+
+Example 1:
+
+Input: s = "abc", t = "ahbgdc"
+Output: true
+Example 2:
+
+Input: s = "axc", t = "ahbgdc"
+Output: false
+ 
+
+Constraints:
+
+0 <= s.length <= 100
+0 <= t.length <= 104
+s and t consist only of lowercase English letters.
+
+
+
+
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        # Let n and m hold the lengths of the source and target strings respectively
+        n,m = len(s),len(t)
+        # i and j are the two pointers initiated as 0
+        i = j = 0
+
+        # While loop until pointer has reached the end for either strings traversed
+        while i < n and j < m:
+            # update both pointers if match else update only target pointer j
+            if s[i] == t[j]:
+                i += 1
+            j += 1
+        # If i is the same as source string length at the end of this, we've found a substring!
+        return i == n
