@@ -1,0 +1,47 @@
+An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
+
+Given an integer n, return true if n is an ugly number.
+
+ 
+
+Example 1:
+
+Input: n = 6
+Output: true
+Explanation: 6 = 2 × 3
+Example 2:
+
+Input: n = 1
+Output: true
+Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+Example 3:
+
+Input: n = 14
+Output: false
+Explanation: 14 is not ugly since it includes the prime factor 7.
+ 
+
+Constraints:
+
+-231 <= n <= 231 - 1
+
+
+
+
+class Solution:
+    def isUgly(self, n: int) -> bool:
+
+        if n < 1: return False
+        if n == 1: return True
+
+        good = set([2, 3, 5])
+
+        def ugly(a, base):
+            if a in good:
+                return True
+            if a % base != 0:
+                return False
+            new_a = a // base
+            return ugly(new_a, 2) or ugly(new_a, 3) or ugly(new_a, 5)
+
+        return ugly(n, 2) or ugly(n, 3) or ugly(n, 5)
