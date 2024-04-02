@@ -1,0 +1,40 @@
+Given an integer n, return true if it is a power of four. Otherwise, return false.
+
+An integer n is a power of four, if there exists an integer x such that n == 4x.
+
+ 
+
+Example 1:
+
+Input: n = 16
+Output: true
+Example 2:
+
+Input: n = 5
+Output: false
+Example 3:
+
+Input: n = 1
+Output: true
+ 
+
+Constraints:
+
+-231 <= n <= 231 - 1
+
+
+
+
+#Import logarithm package
+import math
+
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        #n cannot be negative  
+        if n <= 0:
+            return False
+        #If log4 n == integer, n is a power of 4
+        if math.log(n, 4).is_integer() == True:
+            return True
+        #If the program made it all the way over here, return False
+        return False
